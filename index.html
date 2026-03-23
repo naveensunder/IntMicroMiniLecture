@@ -9,7 +9,6 @@
   <meta property="og:type" content="website" />
   <title>How Criminals Make Decisions | Prof. Naveen Sunder | Bentley University</title>
 
-  <!-- Bentley shield as favicon (inline SVG data URI) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230078C8' rx='8'/><text y='68' x='50' font-size='62' text-anchor='middle' fill='white' font-family='serif' font-weight='bold'>B</text></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -17,17 +16,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* =====================================================
-       BENTLEY COLOUR PALETTE
-       Primary blue:   #0078C8  (from logo)
-       Dark blue:      #005A96  (darker shade for hover)
-       Light blue:     #E6F3FB  (tinted bg for accents)
-       White:          #FFFFFF
-       Off-white rule: #E8E8E8
-       Text primary:   #1A1A1A
-       Text secondary: #5C5C5C
-       Text muted:     #909090
-    ===================================================== */
     :root {
       --bg:             #FFFFFF;
       --bg-card:        #FFFFFF;
@@ -39,9 +27,6 @@
       --bentley-dark:   #005A96;
       --bentley-light:  #E6F3FB;
       --rule:           #E8E8E8;
-      --tag-article:    #0078C8;
-      --tag-podcast:    #5A7A3A;
-      --tag-video:      #7A4A2E;
       --font-serif:     'Lora', Georgia, serif;
       --font-sans:      'Source Sans 3', 'Helvetica Neue', sans-serif;
       --radius:         7px;
@@ -61,6 +46,29 @@
       font-weight: 400;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
+      /* Watermark: Bentley shield faintly centered behind all content */
+      background-image: url('bentleylogo.png');
+      background-repeat: no-repeat;
+      background-position: center 220px;
+      background-size: 480px auto;
+      background-attachment: local;
+      /* Very low opacity achieved via pseudo-element below */
+    }
+
+    /* Watermark overlay — white wash on top of logo to reduce to ~4% visible */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.96);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Everything above the watermark */
+    header, .top-bar, .hero, main, footer, #back-to-top {
+      position: relative;
+      z-index: 1;
     }
 
     a { color: var(--bentley); text-decoration: none; transition: var(--transition); }
@@ -73,6 +81,8 @@
       width: 100%;
       height: 4px;
       background: var(--bentley);
+      position: relative;
+      z-index: 2;
     }
 
     /* =====================================================
@@ -105,13 +115,10 @@
       gap: 0.75rem;
     }
 
-    /* Bentley logo in header */
     .header-logo {
-      height: 30px;
+      height: 32px;
       width: auto;
       display: block;
-      /* The logo has a blue bg — we show it as-is, it looks intentional */
-      border-radius: 3px;
     }
 
     .header-divider {
@@ -128,14 +135,22 @@
       color: var(--bentley);
     }
 
+    /* Larger, linked professor name */
     .header-name {
-      font-size: 0.78rem;
+      font-size: 0.9rem;
+      font-weight: 600;
       color: var(--text-secondary);
+      transition: var(--transition);
+      text-decoration: none;
     }
 
-    @media (max-width: 500px) {
-      .header-name { display: none; }
+    .header-name:hover {
+      color: var(--bentley);
+      text-decoration: none;
+      opacity: 1;
     }
+
+    @media (max-width: 500px) { .header-name { display: none; } }
 
     /* =====================================================
        HERO
@@ -145,7 +160,6 @@
       margin: 0 auto;
       padding: 2.8rem 1.5rem 2rem;
       border-bottom: 1px solid var(--rule);
-      position: relative;
     }
 
     .hero-label {
@@ -159,7 +173,6 @@
       animation: fadeUp 0.4s ease forwards 0.1s;
     }
 
-    /* EC-224 badge */
     .course-badge {
       display: inline-block;
       font-size: 0.68rem;
@@ -193,46 +206,42 @@
       font-style: italic;
       color: var(--text-secondary);
       max-width: 580px;
+      line-height: 1.6;
       opacity: 0;
       animation: fadeUp 0.4s ease forwards 0.26s;
-      line-height: 1.6;
     }
 
-    /* =====================================================
-       BENTLEY RULE DIVIDER
-    ===================================================== */
     .bentley-rule {
       width: 100%;
       height: 2px;
       background: linear-gradient(to right, var(--bentley) 0%, var(--bentley-light) 100%);
       border: none;
-      margin: 1.6rem 0 1.4rem;
+      margin: 1.5rem 0 1.3rem;
       opacity: 0;
       animation: fadeUp 0.4s ease forwards 0.3s;
     }
 
     /* =====================================================
-       DOWNLOAD BUTTONS
+       DOWNLOAD BUTTONS — smaller, content-width
     ===================================================== */
     .downloads {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.7rem;
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
       opacity: 0;
       animation: fadeUp 0.4s ease forwards 0.34s;
     }
 
     .dl-btn {
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
+      gap: 0.4rem;
       background: var(--bentley);
       border: 2px solid var(--bentley);
       border-radius: var(--radius);
-      padding: 0.8rem 1rem;
+      padding: 0.5rem 1.1rem;
       font-family: var(--font-sans);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
       font-weight: 700;
       color: #fff;
       cursor: pointer;
@@ -252,11 +261,7 @@
       opacity: 1;
     }
 
-    .dl-btn-icon { font-size: 1rem; }
-
-    @media (max-width: 480px) {
-      .downloads { grid-template-columns: 1fr; }
-    }
+    .dl-btn-icon { font-size: 0.9rem; }
 
     /* =====================================================
        EXPAND ALL
@@ -283,10 +288,7 @@
       transition: var(--transition);
     }
 
-    .expand-all-btn:hover {
-      border-color: var(--bentley);
-      color: var(--bentley);
-    }
+    .expand-all-btn:hover { border-color: var(--bentley); color: var(--bentley); }
 
     /* =====================================================
        MAIN
@@ -374,7 +376,7 @@
       transform: translateY(0);
       transition: opacity 0.35s ease, transform 0.35s ease,
                   box-shadow 0.2s ease, border-color 0.2s ease,
-                  border-left-color 0.2s ease;
+                  border-left-width 0.2s ease;
     }
 
     .card:hover {
@@ -386,7 +388,6 @@
 
     .card-body { padding: 0.78rem 1.05rem 0.82rem; }
 
-    /* Source row */
     .card-source {
       display: flex;
       align-items: center;
@@ -410,7 +411,6 @@
       letter-spacing: 0.03em;
     }
 
-    /* Title + badges row */
     .card-main {
       display: flex;
       align-items: baseline;
@@ -448,7 +448,6 @@
     .tag-podcast { background: #EEF3E8; color: #5A7A3A; }
     .tag-video   { background: #F5EDE8; color: #7A4A2E; }
 
-    /* Meta row: time + link inline */
     .card-meta-row {
       display: flex;
       align-items: center;
@@ -529,14 +528,13 @@
       text-align: center;
     }
 
-    /* Bentley blue bottom accent */
     footer::before {
       content: '';
       display: block;
       width: 100%;
       height: 3px;
       background: var(--bentley);
-      margin-bottom: 1.3rem;
+      margin-bottom: 1.2rem;
     }
 
     .footer-inner {
@@ -545,6 +543,17 @@
       font-size: 0.79rem;
       color: var(--text-muted);
       line-height: 1.85;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .footer-logo {
+      height: 28px;
+      width: auto;
+      opacity: 0.75;
+      margin-bottom: 0.2rem;
     }
 
     .footer-inner a { color: var(--text-secondary); }
@@ -558,7 +567,7 @@
     }
 
     @media (max-width: 600px) {
-      .hero h1 { font-size: 1.65rem; }
+      .hero h1     { font-size: 1.65rem; }
       #back-to-top { bottom: 1rem; right: 1rem; }
     }
   </style>
@@ -566,23 +575,17 @@
 
 <body>
 
-  <!-- BENTLEY BLUE TOP BAR -->
   <div class="top-bar"></div>
 
   <!-- STICKY HEADER -->
   <header>
     <div class="header-inner">
       <div class="header-left">
-        <!-- 
-          IMPORTANT: bentleylogo.webp must be in the same folder
-          as this index.html file on GitHub for this to display.
-          Upload bentleylogo.webp alongside index.html.
-        -->
-        <img class="header-logo" src="bentleylogo.webp" alt="Bentley University" />
+        <img class="header-logo" src="bentleylogo.png" alt="Bentley University" />
         <div class="header-divider"></div>
         <span class="header-course">EC-224 &nbsp;·&nbsp; Intermediate Microeconomics</span>
       </div>
-      <span class="header-name">Prof. Naveen Sunder</span>
+      <a class="header-name" href="mailto:nsunder@bentley.edu">Prof. Naveen Sunder</a>
     </div>
   </header>
 
@@ -597,11 +600,7 @@
       A microeconomic perspective on strategic behaviour — covering the Prisoner's Dilemma,
       Nash Equilibrium, and backward induction.
     </p>
-
-    <!-- BENTLEY RULE -->
     <hr class="bentley-rule" />
-
-    <!-- DOWNLOAD BUTTONS -->
     <div class="downloads">
       <a class="dl-btn" href="#" target="_blank" rel="noopener">
         <span class="dl-btn-icon">📄</span> Lecture Handout
@@ -620,7 +619,7 @@
   <!-- MAIN CONTENT -->
   <main>
 
-    <!-- ===================== ARTICLES ===================== -->
+    <!-- ARTICLES -->
     <div class="section">
       <button class="section-toggle" aria-expanded="false" aria-controls="section-articles">
         <span class="section-icon">📄</span>
@@ -698,7 +697,7 @@
       </div>
     </div>
 
-    <!-- ===================== PODCASTS ===================== -->
+    <!-- PODCASTS -->
     <div class="section">
       <button class="section-toggle" aria-expanded="false" aria-controls="section-podcasts">
         <span class="section-icon">🎙️</span>
@@ -776,7 +775,7 @@
       </div>
     </div>
 
-    <!-- ===================== VIDEOS ===================== -->
+    <!-- VIDEOS -->
     <div class="section">
       <button class="section-toggle" aria-expanded="false" aria-controls="section-videos">
         <span class="section-icon">🎥</span>
@@ -859,6 +858,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
+      <img class="footer-logo" src="bentleylogo.png" alt="Bentley University" />
       Prof. Naveen Sunder &nbsp;·&nbsp;
       <a href="mailto:nsunder@bentley.edu">nsunder@bentley.edu</a>
       &nbsp;·&nbsp;
@@ -870,23 +870,17 @@
     </div>
   </footer>
 
-  <!-- BACK TO TOP -->
   <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
   <script>
-    // ── Back to top ───────────────────────────────────────
     const btn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      btn.classList.toggle('visible', window.scrollY > 300);
-    });
+    window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 300));
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // ── Collapsible sections ──────────────────────────────
     document.querySelectorAll('.section-toggle').forEach(toggle => {
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true';
-        const bodyId   = toggle.getAttribute('aria-controls');
-        const body     = document.getElementById(bodyId);
+        const body = document.getElementById(toggle.getAttribute('aria-controls'));
         toggle.setAttribute('aria-expanded', String(!expanded));
         body.classList.toggle('open', !expanded);
         if (!expanded) {
@@ -898,21 +892,18 @@
       });
     });
 
-    // ── Expand all ────────────────────────────────────────
-    const expandBtn   = document.getElementById('expand-all-btn');
-    let   allExpanded = false;
+    const expandBtn = document.getElementById('expand-all-btn');
+    let allExpanded = false;
 
     function updateExpandBtn() {
-      const toggles   = document.querySelectorAll('.section-toggle');
-      const openCount = [...toggles].filter(t => t.getAttribute('aria-expanded') === 'true').length;
-      allExpanded = openCount === toggles.length;
+      const toggles = document.querySelectorAll('.section-toggle');
+      allExpanded = [...toggles].every(t => t.getAttribute('aria-expanded') === 'true');
       expandBtn.textContent = allExpanded ? 'Collapse all sections ↑' : 'Expand all sections ↓';
     }
 
     expandBtn.addEventListener('click', () => {
-      const toggles = document.querySelectorAll('.section-toggle');
-      const target  = !allExpanded;
-      toggles.forEach(toggle => {
+      const target = !allExpanded;
+      document.querySelectorAll('.section-toggle').forEach(toggle => {
         const body = document.getElementById(toggle.getAttribute('aria-controls'));
         toggle.setAttribute('aria-expanded', String(target));
         body.classList.toggle('open', target);
