@@ -3,11 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Game Theory mini-lecture resources for Intermediate Microeconomics with Prof. Naveen Sunder at Bentley University. Articles, podcasts, videos, and lecture materials." />
-  <meta property="og:title" content="Intermediate Microeconomics — Game Theory Mini-Lecture" />
+  <meta name="description" content="Game Theory mini-lecture resources for Intermediate Microeconomics with Prof. Naveen Sunder at Bentley University." />
+  <meta property="og:title" content="How Criminals Make Decisions — Game Theory Mini-Lecture" />
   <meta property="og:description" content="Curated resources for the Game Theory mini-lecture with Prof. Naveen Sunder, EC-224 Bentley University." />
   <meta property="og:type" content="website" />
-  <title>Intermediate Microeconomics — Game Theory | Prof. Naveen Sunder</title>
+  <title>How Criminals Make Decisions | Prof. Naveen Sunder | Bentley University</title>
+
+  <!-- Bentley shield as favicon (inline SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230078C8' rx='8'/><text y='68' x='50' font-size='62' text-anchor='middle' fill='white' font-family='serif' font-weight='bold'>B</text></svg>" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,61 +18,62 @@
 
   <style>
     /* =====================================================
-       CSS VARIABLES
+       BENTLEY COLOUR PALETTE
+       Primary blue:   #0078C8  (from logo)
+       Dark blue:      #005A96  (darker shade for hover)
+       Light blue:     #E6F3FB  (tinted bg for accents)
+       White:          #FFFFFF
+       Off-white rule: #E8E8E8
+       Text primary:   #1A1A1A
+       Text secondary: #5C5C5C
+       Text muted:     #909090
     ===================================================== */
     :root {
-      --bg:             #F7F6F3;
+      --bg:             #FFFFFF;
       --bg-card:        #FFFFFF;
+      --bg-light:       #F4F8FC;
       --text-primary:   #1A1A1A;
       --text-secondary: #5C5C5C;
       --text-muted:     #909090;
-      --accent:         #2E5490;
-      --accent-light:   #EBF0F8;
-      --rule:           #DCDAD5;
-      --tag-article:    #2E5490;
+      --bentley:        #0078C8;
+      --bentley-dark:   #005A96;
+      --bentley-light:  #E6F3FB;
+      --rule:           #E8E8E8;
+      --tag-article:    #0078C8;
       --tag-podcast:    #5A7A3A;
       --tag-video:      #7A4A2E;
-      --tag-start:      #B8860B;
       --font-serif:     'Lora', Georgia, serif;
       --font-sans:      'Source Sans 3', 'Helvetica Neue', sans-serif;
-      --radius:         8px;
+      --radius:         7px;
       --shadow-card:    0 1px 3px rgba(0,0,0,0.07), 0 2px 8px rgba(0,0,0,0.04);
-      --shadow-hover:   0 6px 24px rgba(46,84,144,0.13), 0 2px 8px rgba(0,0,0,0.07);
-      --transition:     all 0.22s ease;
+      --shadow-hover:   0 5px 20px rgba(0,120,200,0.13), 0 2px 6px rgba(0,0,0,0.06);
+      --transition:     all 0.2s ease;
     }
 
-    /* =====================================================
-       RESET & BASE
-    ===================================================== */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     body {
-      background-color: var(--bg);
-      /* Subtle dot-grid paper texture */
-      background-image: radial-gradient(circle, #C8C5BC 1px, transparent 1px);
-      background-size: 28px 28px;
+      background: var(--bg);
       color: var(--text-primary);
       font-family: var(--font-sans);
-      font-size: 17px;
+      font-size: 15.5px;
       font-weight: 400;
-      line-height: 1.7;
+      line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Soft grain overlay for depth */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-      background-size: 200px 200px;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    a { color: var(--accent); text-decoration: none; transition: var(--transition); }
+    a { color: var(--bentley); text-decoration: none; transition: var(--transition); }
     a:hover { text-decoration: underline; opacity: 0.82; }
+
+    /* =====================================================
+       BENTLEY BLUE TOP BAR
+    ===================================================== */
+    .top-bar {
+      width: 100%;
+      height: 4px;
+      background: var(--bentley);
+    }
 
     /* =====================================================
        STICKY HEADER
@@ -78,200 +82,281 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(247, 246, 243, 0.95);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--rule);
-      padding: 0.75rem 0;
+      padding: 0.55rem 0;
     }
 
     .header-inner {
-      max-width: 820px;
+      max-width: 760px;
       margin: 0 auto;
       padding: 0 1.5rem;
       display: flex;
       align-items: center;
+      gap: 0.9rem;
       justify-content: space-between;
-      gap: 1rem;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* Bentley logo in header */
+    .header-logo {
+      height: 30px;
+      width: auto;
+      display: block;
+      /* The logo has a blue bg — we show it as-is, it looks intentional */
+      border-radius: 3px;
+    }
+
+    .header-divider {
+      width: 1px;
+      height: 20px;
+      background: var(--rule);
     }
 
     .header-course {
-      font-family: var(--font-sans);
-      font-size: 0.78rem;
+      font-size: 0.74rem;
       font-weight: 600;
       letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--bentley);
     }
 
     .header-name {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: var(--text-secondary);
+    }
+
+    @media (max-width: 500px) {
+      .header-name { display: none; }
     }
 
     /* =====================================================
        HERO
     ===================================================== */
     .hero {
-      max-width: 820px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 4rem 1.5rem 2.8rem;
+      padding: 2.8rem 1.5rem 2rem;
       border-bottom: 1px solid var(--rule);
       position: relative;
-      z-index: 1;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2rem;
-      align-items: start;
     }
 
-    .hero-text { min-width: 0; }
-
     .hero-label {
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.7rem;
+      color: var(--bentley);
+      margin-bottom: 0.45rem;
       opacity: 0;
-      animation: fadeUp 0.5s ease forwards 0.1s;
+      animation: fadeUp 0.4s ease forwards 0.1s;
+    }
+
+    /* EC-224 badge */
+    .course-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: var(--bentley);
+      color: #fff;
+      padding: 0.2em 0.65em;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      position: relative;
+      top: -2px;
     }
 
     .hero h1 {
       font-family: var(--font-serif);
-      font-size: 2.4rem;
+      font-size: 2.05rem;
       font-weight: 700;
       line-height: 1.22;
       color: var(--text-primary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.4rem;
       opacity: 0;
-      animation: fadeUp 0.5s ease forwards 0.2s;
+      animation: fadeUp 0.4s ease forwards 0.18s;
     }
 
-    .hero-subtitle {
+    .hero-sub {
       font-family: var(--font-serif);
-      font-size: 1.1rem;
+      font-size: 0.96rem;
       font-style: italic;
       color: var(--text-secondary);
-      margin-bottom: 1.2rem;
+      max-width: 580px;
       opacity: 0;
-      animation: fadeUp 0.5s ease forwards 0.3s;
-    }
-
-    .hero-description {
-      font-size: 0.95rem;
-      color: var(--text-secondary);
-      max-width: 560px;
-      line-height: 1.75;
-      margin-bottom: 1.4rem;
-      opacity: 0;
-      animation: fadeUp 0.5s ease forwards 0.4s;
-    }
-
-    .hero-meta {
-      display: flex;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      opacity: 0;
-      animation: fadeUp 0.5s ease forwards 0.5s;
-    }
-
-    .hero-meta-item {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    /* SVG illustration beside hero */
-    .hero-illustration {
-      width: 160px;
-      flex-shrink: 0;
-      opacity: 0;
-      animation: fadeIn 0.8s ease forwards 0.6s;
-      padding-top: 1.2rem;
-    }
-
-    @media (max-width: 640px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-illustration { display: none; }
-      .hero h1 { font-size: 1.85rem; }
+      animation: fadeUp 0.4s ease forwards 0.26s;
+      line-height: 1.6;
     }
 
     /* =====================================================
-       ABOUT BOX
+       BENTLEY RULE DIVIDER
     ===================================================== */
-    .about-box {
-      background: var(--accent-light);
-      border-left: 3px solid var(--accent);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 1rem 1.3rem;
-      margin-top: 1.8rem;
-      font-size: 0.93rem;
-      color: var(--text-secondary);
-      line-height: 1.72;
+    .bentley-rule {
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, var(--bentley) 0%, var(--bentley-light) 100%);
+      border: none;
+      margin: 1.6rem 0 1.4rem;
       opacity: 0;
-      animation: fadeUp 0.5s ease forwards 0.55s;
+      animation: fadeUp 0.4s ease forwards 0.3s;
     }
 
-    .about-box strong { color: var(--text-primary); font-weight: 600; }
+    /* =====================================================
+       DOWNLOAD BUTTONS
+    ===================================================== */
+    .downloads {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.7rem;
+      opacity: 0;
+      animation: fadeUp 0.4s ease forwards 0.34s;
+    }
+
+    .dl-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      background: var(--bentley);
+      border: 2px solid var(--bentley);
+      border-radius: var(--radius);
+      padding: 0.8rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 2px 8px rgba(0,120,200,0.18);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .dl-btn:hover {
+      background: var(--bentley-dark);
+      border-color: var(--bentley-dark);
+      text-decoration: none;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0,120,200,0.28);
+      color: #fff;
+      opacity: 1;
+    }
+
+    .dl-btn-icon { font-size: 1rem; }
+
+    @media (max-width: 480px) {
+      .downloads { grid-template-columns: 1fr; }
+    }
+
+    /* =====================================================
+       EXPAND ALL
+    ===================================================== */
+    .expand-row {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 0.2rem;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .expand-all-btn {
+      background: none;
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 0.26em 0.82em;
+      font-family: var(--font-sans);
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: var(--transition);
+    }
+
+    .expand-all-btn:hover {
+      border-color: var(--bentley);
+      color: var(--bentley);
+    }
 
     /* =====================================================
        MAIN
     ===================================================== */
     main {
-      max-width: 820px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 0 1.5rem 5rem;
-      position: relative;
-      z-index: 1;
+      padding: 0.4rem 1.5rem 4rem;
     }
 
     /* =====================================================
-       SECTIONS
+       COLLAPSIBLE SECTIONS
     ===================================================== */
-    .section { padding: 2.8rem 0 0; }
-    .section + .section {
-      border-top: 1px solid var(--rule);
-      margin-top: 0.5rem;
-    }
+    .section { margin-top: 0.4rem; }
 
-    .section-header {
+    .section-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      border-top: 1px solid var(--rule);
+      padding: 0.8rem 0;
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 1.4rem;
+      gap: 0.6rem;
+      cursor: pointer;
+      text-align: left;
+      transition: var(--transition);
     }
 
-    .section-icon { font-size: 1.1rem; line-height: 1; }
+    .section-toggle:hover .section-title { color: var(--bentley); }
+
+    .section-icon  { font-size: 1rem; line-height: 1; }
 
     .section-title {
       font-family: var(--font-serif);
-      font-size: 1.22rem;
+      font-size: 1.03rem;
       font-weight: 600;
       color: var(--text-primary);
-      letter-spacing: 0.01em;
+      transition: var(--transition);
     }
 
     .section-count {
       margin-left: auto;
-      font-size: 0.75rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--text-muted);
-      background: #EFEFEC;
-      padding: 0.2em 0.7em;
+      background: #F0F0F0;
+      padding: 0.17em 0.55em;
       border-radius: 20px;
     }
+
+    .chevron {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      margin-left: 0.35rem;
+      transition: transform 0.25s ease;
+      display: inline-block;
+    }
+
+    .section-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+    .section-body { display: none; padding-bottom: 0.5rem; }
+    .section-body.open { display: block; }
 
     /* =====================================================
        CARDS
     ===================================================== */
-    .cards { display: flex; flex-direction: column; gap: 1.1rem; }
+    .cards { display: flex; flex-direction: column; gap: 0.55rem; padding-top: 0.45rem; }
 
     .card {
       background: var(--bg-card);
@@ -281,143 +366,130 @@
       transition: var(--transition);
       overflow: hidden;
       opacity: 0;
-      transform: translateY(18px);
+      transform: translateY(10px);
     }
 
     .card.visible {
       opacity: 1;
       transform: translateY(0);
-      transition: opacity 0.45s ease, transform 0.45s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      transition: opacity 0.35s ease, transform 0.35s ease,
+                  box-shadow 0.2s ease, border-color 0.2s ease,
+                  border-left-color 0.2s ease;
     }
 
     .card:hover {
       box-shadow: var(--shadow-hover);
-      transform: translateY(-3px);
-      border-color: #C2CFDF;
+      transform: translateY(-2px);
+      border-color: #A8CEEA;
+      border-left: 3px solid var(--bentley);
     }
 
-    /* Video thumbnail at top of card */
-    .card-thumbnail {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      display: block;
-      background: #E8E6E0;
-    }
+    .card-body { padding: 0.78rem 1.05rem 0.82rem; }
 
-    .card-thumbnail-placeholder {
-      width: 100%;
-      height: 180px;
-      background: linear-gradient(135deg, #EBF0F8 0%, #DDE5F0 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Source favicon row */
+    /* Source row */
     .card-source {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
-      margin-bottom: 0.4rem;
+      gap: 0.38rem;
+      margin-bottom: 0.28rem;
     }
 
     .source-favicon {
-      width: 18px;
-      height: 18px;
-      border-radius: 3px;
+      width: 14px;
+      height: 14px;
+      border-radius: 2px;
       object-fit: contain;
       flex-shrink: 0;
-      background: #EFEFEC;
+      background: #F0F0F0;
     }
 
     .source-name {
-      font-size: 0.78rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: var(--text-muted);
-      letter-spacing: 0.04em;
+      letter-spacing: 0.03em;
     }
 
-    .card-body { padding: 1.2rem 1.4rem 1.3rem; }
-
-    .card-top {
+    /* Title + badges row */
+    .card-main {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.8rem;
-      margin-bottom: 0.4rem;
+      align-items: baseline;
+      gap: 0.55rem;
       flex-wrap: wrap;
+      margin-bottom: 0.3rem;
     }
 
     .card-title {
       font-family: var(--font-serif);
-      font-size: 1.02rem;
+      font-size: 0.94rem;
       font-weight: 600;
       color: var(--text-primary);
-      line-height: 1.38;
+      line-height: 1.35;
     }
 
     .card-badges {
       display: flex;
-      gap: 0.35rem;
-      flex-shrink: 0;
-      flex-wrap: wrap;
+      gap: 0.28rem;
       align-items: center;
+      flex-wrap: wrap;
+      flex-shrink: 0;
     }
 
     .tag {
-      display: inline-block;
-      font-size: 0.67rem;
+      font-size: 0.62rem;
       font-weight: 600;
-      letter-spacing: 0.09em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 0.2em 0.55em;
+      padding: 0.16em 0.48em;
       border-radius: 3px;
     }
 
-    .tag-article { background: #EBF0F8; color: var(--tag-article); }
-    .tag-podcast { background: #EEF3E8; color: var(--tag-podcast); }
-    .tag-video   { background: #F5EDE8; color: var(--tag-video); }
-    .tag-start   { background: #FDF3DC; color: var(--tag-start); border: 1px solid #E8C96A; }
+    .tag-article { background: var(--bentley-light); color: var(--bentley); }
+    .tag-podcast { background: #EEF3E8; color: #5A7A3A; }
+    .tag-video   { background: #F5EDE8; color: #7A4A2E; }
 
-    /* Time pill */
-    .time-pill {
-      display: inline-flex;
+    /* Meta row: time + link inline */
+    .card-meta-row {
+      display: flex;
       align-items: center;
-      gap: 0.3em;
-      font-size: 0.75rem;
+      gap: 0.85rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.38rem;
+    }
+
+    .time-pill {
+      font-size: 0.7rem;
       font-weight: 500;
       color: var(--text-muted);
-      background: #F2F1EE;
-      padding: 0.22em 0.65em;
-      border-radius: 20px;
-      margin-bottom: 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.22em;
+    }
+
+    .card-link-inline {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--bentley);
+      border: 1px solid #A8CEEA;
+      border-radius: 3px;
+      padding: 0.16em 0.6em;
+      transition: var(--transition);
+      background: var(--bentley-light);
+      white-space: nowrap;
+    }
+
+    .card-link-inline:hover {
+      background: var(--bentley);
+      color: #fff;
+      border-color: var(--bentley);
+      text-decoration: none;
+      opacity: 1;
     }
 
     .card-description {
-      font-size: 0.91rem;
+      font-size: 0.85rem;
       color: var(--text-secondary);
-      line-height: 1.65;
-      margin-bottom: 1rem;
-    }
-
-    .card-link {
-      display: inline-block;
-      font-size: 0.84rem;
-      font-weight: 600;
-      color: var(--accent);
-      border: 1px solid #C2CFDF;
-      border-radius: 4px;
-      padding: 0.32em 0.9em;
-      transition: var(--transition);
-      background: var(--accent-light);
-    }
-
-    .card-link:hover {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-      text-decoration: none;
+      line-height: 1.56;
     }
 
     /* =====================================================
@@ -425,17 +497,17 @@
     ===================================================== */
     #back-to-top {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: var(--accent);
+      bottom: 1.8rem;
+      right: 1.8rem;
+      background: var(--bentley);
       color: #fff;
       border: none;
       border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      font-size: 1.1rem;
+      width: 38px;
+      height: 38px;
+      font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 2px 12px rgba(46,84,144,0.32);
+      box-shadow: 0 2px 10px rgba(0,120,200,0.3);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease, transform 0.2s ease;
@@ -453,17 +525,24 @@
     ===================================================== */
     footer {
       border-top: 1px solid var(--rule);
-      margin-top: 3rem;
-      padding: 1.8rem 1.5rem;
+      padding: 1.3rem 1.5rem;
       text-align: center;
-      position: relative;
-      z-index: 1;
+    }
+
+    /* Bentley blue bottom accent */
+    footer::before {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 3px;
+      background: var(--bentley);
+      margin-bottom: 1.3rem;
     }
 
     .footer-inner {
-      max-width: 820px;
+      max-width: 760px;
       margin: 0 auto;
-      font-size: 0.84rem;
+      font-size: 0.79rem;
       color: var(--text-muted);
       line-height: 1.85;
     }
@@ -474,103 +553,68 @@
        ANIMATIONS
     ===================================================== */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(14px); }
+      from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* =====================================================
-       RESPONSIVE
-    ===================================================== */
     @media (max-width: 600px) {
-      .hero h1        { font-size: 1.75rem; }
-      .card-top       { flex-direction: column; gap: 0.4rem; }
-      #back-to-top    { bottom: 1.2rem; right: 1.2rem; }
-      .header-name    { display: none; }
-      .card-thumbnail { height: 150px; }
+      .hero h1 { font-size: 1.65rem; }
+      #back-to-top { bottom: 1rem; right: 1rem; }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- BENTLEY BLUE TOP BAR -->
+  <div class="top-bar"></div>
+
   <!-- STICKY HEADER -->
   <header>
     <div class="header-inner">
-      <span class="header-course">EC-224 &nbsp;·&nbsp; Intermediate Microeconomics</span>
+      <div class="header-left">
+        <!-- 
+          IMPORTANT: bentleylogo.webp must be in the same folder
+          as this index.html file on GitHub for this to display.
+          Upload bentleylogo.webp alongside index.html.
+        -->
+        <img class="header-logo" src="bentleylogo.webp" alt="Bentley University" />
+        <div class="header-divider"></div>
+        <span class="header-course">EC-224 &nbsp;·&nbsp; Intermediate Microeconomics</span>
+      </div>
       <span class="header-name">Prof. Naveen Sunder</span>
     </div>
   </header>
 
   <!-- HERO -->
   <div class="hero">
-    <div class="hero-text">
-      <p class="hero-label">Game Theory Mini-Lecture</p>
-      <h1>Intermediate<br/>Microeconomics</h1>
-      <p class="hero-subtitle">How Criminals Make Decisions: A Microeconomic Perspective</p>
-      <p class="hero-description">
-        A curated set of readings, podcasts, and videos to accompany today's lecture.
-        Selected for accessibility — no prior economics knowledge required.
-        Each item includes an estimated time and a note on how it connects to what we covered.
-      </p>
-      <div class="hero-meta">
-        <span class="hero-meta-item">⏱ ~2.5 hrs total material</span>
-        <span class="hero-meta-item">· 3 articles &nbsp;·&nbsp; 3 podcasts &nbsp;·&nbsp; 3 videos</span>
-      </div>
-      <div class="about-box">
-        <strong>About this lecture.</strong> Today's session introduced
-        <em>game theory</em> — the branch of economics that models strategic
-        decisions where your best choice depends on what others do. We covered
-        the Prisoner's Dilemma, Nash Equilibrium, sequential games, and
-        backward induction, with applications to AI company competition,
-        antitrust, and business strategy.
-      </div>
-    </div>
+    <p class="hero-label">
+      Game Theory Mini-Lecture
+      <span class="course-badge">EC-224</span>
+    </p>
+    <h1>How Criminals Make Decisions</h1>
+    <p class="hero-sub">
+      A microeconomic perspective on strategic behaviour — covering the Prisoner's Dilemma,
+      Nash Equilibrium, and backward induction.
+    </p>
 
-    <!-- Hand-drawn style SVG illustration of a payoff matrix -->
-    <div class="hero-illustration">
-      <svg viewBox="0 0 160 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <!-- Grid lines — slightly imperfect for hand-drawn feel -->
-        <rect x="40" y="40" width="110" height="110" rx="3" fill="white" stroke="#DCDAD5" stroke-width="1.2"/>
-        <!-- Column header shading -->
-        <rect x="40" y="40" width="55" height="22" rx="2" fill="#EBF0F8"/>
-        <rect x="95" y="40" width="55" height="22" rx="2" fill="#EBF0F8"/>
-        <!-- Row header shading -->
-        <rect x="40" y="62" width="22" height="44" fill="#EBF0F8"/>
-        <rect x="40" y="106" width="22" height="44" fill="#EBF0F8"/>
-        <!-- Inner grid lines -->
-        <line x1="95" y1="40" x2="95" y2="150" stroke="#DCDAD5" stroke-width="1"/>
-        <line x1="40" y1="106" x2="150" y2="106" stroke="#DCDAD5" stroke-width="1"/>
-        <line x1="62" y1="62" x2="62" y2="150" stroke="#DCDAD5" stroke-width="0.8"/>
-        <line x1="40" y1="62" x2="150" y2="62" stroke="#DCDAD5" stroke-width="0.8"/>
-        <!-- Column headers text -->
-        <text x="72" y="55" font-family="Lora, serif" font-size="7.5" fill="#2E5490" text-anchor="middle" font-weight="600">Silent</text>
-        <text x="122" y="55" font-family="Lora, serif" font-size="7.5" fill="#2E5490" text-anchor="middle" font-weight="600">Confess</text>
-        <!-- Row headers text -->
-        <text x="51" y="87" font-family="Lora, serif" font-size="6.5" fill="#2E5490" text-anchor="middle" font-weight="600">S</text>
-        <text x="51" y="131" font-family="Lora, serif" font-size="6.5" fill="#2E5490" text-anchor="middle" font-weight="600">C</text>
-        <!-- Payoff values -->
-        <text x="78" y="88" font-family="Lora, serif" font-size="8.5" fill="#1A1A1A" text-anchor="middle">−5, −5</text>
-        <text x="126" y="88" font-family="Lora, serif" font-size="8.5" fill="#1A1A1A" text-anchor="middle">−30, −1</text>
-        <text x="78" y="131" font-family="Lora, serif" font-size="8.5" fill="#1A1A1A" text-anchor="middle">−1, −30</text>
-        <!-- Highlighted NE cell -->
-        <rect x="96" y="107" width="53" height="42" rx="2" fill="#FDF3DC" stroke="#E8C96A" stroke-width="1.2"/>
-        <text x="122" y="131" font-family="Lora, serif" font-size="8.5" fill="#7A5A0A" text-anchor="middle" font-weight="600">−10, −10</text>
-        <!-- NE label -->
-        <text x="122" y="143" font-family="Source Sans 3, sans-serif" font-size="6" fill="#B8860B" text-anchor="middle" font-weight="600" letter-spacing="0.08em">NE</text>
-        <!-- Label above: "Player B" -->
-        <text x="122" y="32" font-family="Source Sans 3, sans-serif" font-size="7" fill="#5C5C5C" text-anchor="middle" letter-spacing="0.06em" font-weight="600">PLAYER B</text>
-        <!-- Label left: "Player A" rotated -->
-        <text x="14" y="100" font-family="Source Sans 3, sans-serif" font-size="7" fill="#5C5C5C" text-anchor="middle" letter-spacing="0.06em" font-weight="600" transform="rotate(-90 14 100)">PLAYER A</text>
-        <!-- Small arrow pointing to NE -->
-        <path d="M145 160 Q152 148 147 142" stroke="#B8860B" stroke-width="1.2" fill="none" stroke-linecap="round"/>
-        <text x="148" y="168" font-family="Lora, serif" font-size="6.5" fill="#B8860B" text-anchor="middle" font-style="italic">Nash Eq.</text>
-      </svg>
+    <!-- BENTLEY RULE -->
+    <hr class="bentley-rule" />
+
+    <!-- DOWNLOAD BUTTONS -->
+    <div class="downloads">
+      <a class="dl-btn" href="#" target="_blank" rel="noopener">
+        <span class="dl-btn-icon">📄</span> Lecture Handout
+      </a>
+      <a class="dl-btn" href="#" target="_blank" rel="noopener">
+        <span class="dl-btn-icon">📊</span> Lecture Slides
+      </a>
     </div>
+  </div>
+
+  <!-- EXPAND ALL -->
+  <div class="expand-row">
+    <button class="expand-all-btn" id="expand-all-btn">Expand all sections ↓</button>
   </div>
 
   <!-- MAIN CONTENT -->
@@ -578,349 +622,234 @@
 
     <!-- ===================== ARTICLES ===================== -->
     <div class="section">
-      <div class="section-header">
+      <button class="section-toggle" aria-expanded="false" aria-controls="section-articles">
         <span class="section-icon">📄</span>
-        <h2 class="section-title">Articles</h2>
+        <span class="section-title">Articles</span>
         <span class="section-count">3 resources</span>
-      </div>
-      <div class="cards">
+        <span class="chevron">▼</span>
+      </button>
+      <div class="section-body" id="section-articles" role="region">
+        <div class="cards">
 
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=economist.com&sz=32"
-                alt="The Economist" loading="lazy" />
-              <span class="source-name">The Economist</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Game Theory Explained — Schools Brief</span>
-              <div class="card-badges">
-                <span class="tag tag-article">Article</span>
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=economist.com&sz=32" alt="The Economist" loading="lazy" />
+                <span class="source-name">The Economist</span>
               </div>
-            </div>
-            <div class="time-pill">⏱ ~15 min read</div>
-            <p class="card-description">
-              An accessible, well-written overview of game theory covering the Prisoner's
-              Dilemma, Nash Equilibrium, and strategic behaviour. Directly mirrors Sections
-              1–3 of today's lecture. A strong first read if you want to consolidate what
-              we discussed in class.
-            </p>
-            <a class="card-link" href="https://www.economist.com/schools-brief" target="_blank" rel="noopener">Read article →</a>
-          </div>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=ft.com&sz=32"
-                alt="Financial Times" loading="lazy" />
-              <span class="source-name">Financial Times</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Tech Giants and Antitrust</span>
-              <div class="card-badges">
-                <span class="tag tag-article">Article</span>
+              <div class="card-main">
+                <span class="card-title">Game Theory Explained — Schools Brief</span>
+                <div class="card-badges"><span class="tag tag-article">Article</span></div>
               </div>
-            </div>
-            <div class="time-pill">⏱ ~10–20 min read</div>
-            <p class="card-description">
-              Recent reporting on Apple, Google, and Meta antitrust cases — all
-              interpretable through the Prisoner's Dilemma framework from today's lecture.
-              Particularly relevant to the AI company example introduced in class.
-              Search "antitrust AI" on ft.com for current pieces.
-            </p>
-            <a class="card-link" href="https://www.ft.com" target="_blank" rel="noopener">Visit FT →</a>
-          </div>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=propublica.org&sz=32"
-                alt="ProPublica" loading="lazy" />
-              <span class="source-name">ProPublica</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Corporate Whistleblowing and Strategic Disclosure</span>
-              <div class="card-badges">
-                <span class="tag tag-article">Article</span>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~15 min</span>
+                <a class="card-link-inline" href="https://www.economist.com/schools-brief" target="_blank" rel="noopener">Read →</a>
               </div>
+              <p class="card-description">
+                Accessible overview of the Prisoner's Dilemma, Nash Equilibrium, and strategic behaviour.
+                Mirrors Sections 1–3 of today's lecture directly.
+              </p>
             </div>
-            <div class="time-pill">⏱ ~20 min read</div>
-            <p class="card-description">
-              Investigative journalism applying game-theoretic logic to corporate
-              whistleblowing and regulatory compliance — the real-world analogue to
-              today's AI company Prisoner's Dilemma. Firms deciding whether to disclose
-              or conceal under regulatory scrutiny.
-            </p>
-            <a class="card-link" href="https://www.propublica.org" target="_blank" rel="noopener">Visit ProPublica →</a>
           </div>
-        </div>
 
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=ft.com&sz=32" alt="Financial Times" loading="lazy" />
+                <span class="source-name">Financial Times</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">Tech Giants and Antitrust</span>
+                <div class="card-badges"><span class="tag tag-article">Article</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~15 min</span>
+                <a class="card-link-inline" href="https://www.ft.com" target="_blank" rel="noopener">Visit FT →</a>
+              </div>
+              <p class="card-description">
+                Apple, Google, and Meta antitrust cases interpreted through the Prisoner's Dilemma.
+                Search "antitrust AI" on ft.com for current pieces.
+              </p>
+            </div>
+          </div>
+
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=propublica.org&sz=32" alt="ProPublica" loading="lazy" />
+                <span class="source-name">ProPublica</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">Corporate Whistleblowing and Strategic Disclosure</span>
+                <div class="card-badges"><span class="tag tag-article">Article</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~20 min</span>
+                <a class="card-link-inline" href="https://www.propublica.org" target="_blank" rel="noopener">Read →</a>
+              </div>
+              <p class="card-description">
+                Game-theoretic logic applied to corporate whistleblowing — firms deciding whether
+                to disclose or conceal under regulatory scrutiny.
+              </p>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
     <!-- ===================== PODCASTS ===================== -->
     <div class="section">
-      <div class="section-header">
+      <button class="section-toggle" aria-expanded="false" aria-controls="section-podcasts">
         <span class="section-icon">🎙️</span>
-        <h2 class="section-title">Podcasts</h2>
+        <span class="section-title">Podcasts</span>
         <span class="section-count">3 resources</span>
-      </div>
-      <div class="cards">
+        <span class="chevron">▼</span>
+      </button>
+      <div class="section-body" id="section-podcasts" role="region">
+        <div class="cards">
 
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32"
-                alt="Apple Podcasts" loading="lazy" />
-              <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Freakonomics Radio</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Freakonomics Radio — "The Prisoner's Dilemma"</span>
-              <div class="card-badges">
-                <span class="tag tag-podcast">Podcast</span>
-                <span class="tag tag-start">Start here</span>
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32" alt="Apple Podcasts" loading="lazy" />
+                <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Freakonomics Radio</span>
               </div>
-            </div>
-            <div class="time-pill">⏱ ~45 min</div>
-            <p class="card-description">
-              One of the best lay introductions to the Prisoner's Dilemma available.
-              Entertaining, rigorous, and covers real-world applications in business
-              and international relations. Highly recommended as a first listen after
-              today's session.
-            </p>
-            <a class="card-link" href="https://podcasts.apple.com/us/podcast/freakonomics-radio/id354668519" target="_blank" rel="noopener">Open in Apple Podcasts →</a>
-          </div>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32"
-                alt="Apple Podcasts" loading="lazy" />
-              <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Planet Money</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Planet Money — "The Prisoner's Dilemma of Climate"</span>
-              <div class="card-badges">
-                <span class="tag tag-podcast">Podcast</span>
+              <div class="card-main">
+                <span class="card-title">Freakonomics Radio — "The Prisoner's Dilemma"</span>
+                <div class="card-badges"><span class="tag tag-podcast">Podcast</span></div>
               </div>
-            </div>
-            <div class="time-pill">⏱ ~25 min</div>
-            <p class="card-description">
-              Applies today's payoff matrix logic directly to international climate
-              negotiations. Shows exactly why the game structure makes cooperation so
-              difficult to sustain — even when all parties prefer the cooperative outcome.
-              A great bridge between economics and policy.
-            </p>
-            <a class="card-link" href="https://podcasts.apple.com/us/podcast/planet-money/id290783428" target="_blank" rel="noopener">Open in Apple Podcasts →</a>
-          </div>
-        </div>
-
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32"
-                alt="Apple Podcasts" loading="lazy" />
-              <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Capitalisn't</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Capitalisn't (Chicago Booth) — AI and Antitrust</span>
-              <div class="card-badges">
-                <span class="tag tag-podcast">Podcast</span>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~45 min</span>
+                <a class="card-link-inline" href="https://podcasts.apple.com/us/podcast/freakonomics-radio/id354668519" target="_blank" rel="noopener">Listen →</a>
               </div>
+              <p class="card-description">
+                One of the best lay introductions to the dilemma available. Covers real-world
+                applications in business and international relations.
+              </p>
             </div>
-            <div class="time-pill">⏱ ~40 min</div>
-            <p class="card-description">
-              Produced by Chicago Booth economists, this episode discusses tech firm
-              competitive strategy from a rigorous economics perspective. Directly
-              relevant to the AI company framing introduced in today's lecture.
-              Search "Capitalisnt AI antitrust" on Apple Podcasts.
-            </p>
-            <a class="card-link" href="https://podcasts.apple.com/us/podcast/capitalisnt/id1326698855" target="_blank" rel="noopener">Open in Apple Podcasts →</a>
           </div>
-        </div>
 
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32" alt="Apple Podcasts" loading="lazy" />
+                <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Planet Money</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">Planet Money — "The Prisoner's Dilemma of Climate"</span>
+                <div class="card-badges"><span class="tag tag-podcast">Podcast</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~25 min</span>
+                <a class="card-link-inline" href="https://podcasts.apple.com/us/podcast/planet-money/id290783428" target="_blank" rel="noopener">Listen →</a>
+              </div>
+              <p class="card-description">
+                Applies today's payoff matrix logic to international climate negotiations —
+                why cooperation is structurally difficult even when all parties benefit.
+              </p>
+            </div>
+          </div>
+
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32" alt="Apple Podcasts" loading="lazy" />
+                <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Capitalisn't</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">Capitalisn't (Chicago Booth) — AI and Antitrust</span>
+                <div class="card-badges"><span class="tag tag-podcast">Podcast</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~40 min</span>
+                <a class="card-link-inline" href="https://podcasts.apple.com/us/podcast/capitalisnt/id1326698855" target="_blank" rel="noopener">Listen →</a>
+              </div>
+              <p class="card-description">
+                Chicago Booth economists on tech firm competitive strategy — directly relevant
+                to the AI company framing from today's lecture.
+              </p>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
     <!-- ===================== VIDEOS ===================== -->
     <div class="section">
-      <div class="section-header">
+      <button class="section-toggle" aria-expanded="false" aria-controls="section-videos">
         <span class="section-icon">🎥</span>
-        <h2 class="section-title">Videos</h2>
+        <span class="section-title">Videos</span>
         <span class="section-count">3 resources</span>
-      </div>
-      <div class="cards">
+        <span class="chevron">▼</span>
+      </button>
+      <div class="section-body" id="section-videos" role="region">
+        <div class="cards">
 
-        <!-- YouTube thumbnail via YouTube CDN -->
-        <div class="card" data-animate>
-          <img class="card-thumbnail"
-            src="https://img.youtube.com/vi/t9Lo2fgxWHw/mqdefault.jpg"
-            alt="MRU: Game Theory and Nash Equilibrium thumbnail"
-            loading="lazy"
-            onerror="this.style.display='none'" />
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
-                alt="YouTube" loading="lazy" />
-              <span class="source-name">YouTube &nbsp;·&nbsp; Marginal Revolution University</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Game Theory and Nash Equilibrium</span>
-              <div class="card-badges">
-                <span class="tag tag-video">Video</span>
-                <span class="tag tag-start">Start here</span>
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32" alt="YouTube" loading="lazy" />
+                <span class="source-name">YouTube &nbsp;·&nbsp; Marginal Revolution University</span>
               </div>
-            </div>
-            <div class="time-pill">⏱ ~10 min</div>
-            <p class="card-description">
-              A clear, visual introduction to Nash Equilibrium with worked examples
-              by economists Tyler Cowen and Alex Tabarrok. Covers exactly the material
-              from today's lecture. Watch this before attempting the Level 2 practice
-              questions in the handout.
-            </p>
-            <a class="card-link" href="https://www.youtube.com/watch?v=t9Lo2fgxWHw" target="_blank" rel="noopener">Watch on YouTube →</a>
-          </div>
-        </div>
-
-        <div class="card" data-animate>
-          <img class="card-thumbnail"
-            src="https://img.youtube.com/vi/mScpHTIi-kM/mqdefault.jpg"
-            alt="Veritasium: The Prisoner's Dilemma thumbnail"
-            loading="lazy"
-            onerror="this.style.display='none'" />
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
-                alt="YouTube" loading="lazy" />
-              <span class="source-name">YouTube &nbsp;·&nbsp; Veritasium</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">Veritasium — "The Prisoner's Dilemma"</span>
-              <div class="card-badges">
-                <span class="tag tag-video">Video</span>
+              <div class="card-main">
+                <span class="card-title">Game Theory and Nash Equilibrium</span>
+                <div class="card-badges"><span class="tag tag-video">Video</span></div>
               </div>
-            </div>
-            <div class="time-pill">⏱ ~15 min</div>
-            <p class="card-description">
-              One of the most-watched explanations of the Prisoner's Dilemma online.
-              Goes beyond the one-shot game to cover repeated games, cooperation, and
-              how strategies evolve — directly connecting to the rationality discussion
-              at the end of today's lecture.
-            </p>
-            <a class="card-link" href="https://www.youtube.com/watch?v=mScpHTIi-kM" target="_blank" rel="noopener">Watch on YouTube →</a>
-          </div>
-        </div>
-
-        <div class="card" data-animate>
-          <img class="card-thumbnail"
-            src="https://img.youtube.com/vi/2d_dtTZQyUM/mqdefault.jpg"
-            alt="A Beautiful Mind Nash Equilibrium scene thumbnail"
-            loading="lazy"
-            onerror="this.style.display='none'" />
-          <div class="card-body">
-            <div class="card-source">
-              <img class="source-favicon"
-                src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
-                alt="YouTube" loading="lazy" />
-              <span class="source-name">YouTube</span>
-            </div>
-            <div class="card-top">
-              <span class="card-title">A Beautiful Mind — Nash Equilibrium Scene</span>
-              <div class="card-badges">
-                <span class="tag tag-video">Video</span>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~10 min</span>
+                <a class="card-link-inline" href="https://www.youtube.com/watch?v=t9Lo2fgxWHw" target="_blank" rel="noopener">Watch →</a>
               </div>
+              <p class="card-description">
+                Clear visual introduction to Nash Equilibrium with worked examples by Tyler Cowen
+                and Alex Tabarrok. Watch before attempting Level 2 practice questions.
+              </p>
             </div>
-            <div class="time-pill">⏱ ~3 min</div>
-            <p class="card-description">
-              The famous Hollywood depiction of Nash Equilibrium. Good for building
-              intuition — though John Nash himself noted the scene is not quite
-              technically accurate. Watch for the flavour; use the lecture notes
-              for precision.
-            </p>
-            <a class="card-link" href="https://www.youtube.com/watch?v=2d_dtTZQyUM" target="_blank" rel="noopener">Watch on YouTube →</a>
           </div>
-        </div>
 
-      </div>
-    </div>
-
-    <!-- ===================== MATERIALS ===================== -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-icon">📎</span>
-        <h2 class="section-title">Lecture Materials</h2>
-        <span class="section-count">2 files</span>
-      </div>
-      <div class="cards">
-
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-top">
-              <span class="card-title">Lecture Handout — Game Theory Notes &amp; Practice Questions</span>
-              <div class="card-badges"><span class="tag tag-article">PDF</span></div>
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32" alt="YouTube" loading="lazy" />
+                <span class="source-name">YouTube &nbsp;·&nbsp; Veritasium</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">Veritasium — "The Prisoner's Dilemma"</span>
+                <div class="card-badges"><span class="tag tag-video">Video</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~15 min</span>
+                <a class="card-link-inline" href="https://www.youtube.com/watch?v=mScpHTIi-kM" target="_blank" rel="noopener">Watch →</a>
+              </div>
+              <p class="card-description">
+                Covers repeated games and the evolution of cooperation — connects to the
+                rationality discussion at the end of today's lecture.
+              </p>
             </div>
-            <div class="time-pill">⏱ Self-paced</div>
-            <p class="card-description">
-              Full notes with definitions, worked examples, and tiered practice
-              questions (Levels 1–3) with complete solutions. Covers all material
-              from today's lecture including Prisoner's Dilemma, Nash Equilibrium,
-              backward induction, and real-world applications.
-            </p>
-            <!-- Replace href="#" with your uploaded PDF path -->
-            <a class="card-link" href="#" target="_blank" rel="noopener">Download PDF →</a>
           </div>
-        </div>
 
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-top">
-              <span class="card-title">Lecture Slides</span>
-              <div class="card-badges"><span class="tag tag-article">PDF</span></div>
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32" alt="YouTube" loading="lazy" />
+                <span class="source-name">YouTube</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">A Beautiful Mind — Nash Equilibrium Scene</span>
+                <div class="card-badges"><span class="tag tag-video">Video</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~3 min</span>
+                <a class="card-link-inline" href="https://www.youtube.com/watch?v=2d_dtTZQyUM" target="_blank" rel="noopener">Watch →</a>
+              </div>
+              <p class="card-description">
+                Hollywood's take on Nash Equilibrium — good for intuition, not precision.
+                Use alongside the lecture notes for the technically accurate version.
+              </p>
             </div>
-            <div class="time-pill">⏱ Reference</div>
-            <p class="card-description">
-              Slides from today's session, including payoff matrices, game tree
-              diagrams, and the Economics Is Everywhere course overview.
-            </p>
-            <!-- Replace href="#" with your uploaded PDF path -->
-            <a class="card-link" href="#" target="_blank" rel="noopener">Download PDF →</a>
           </div>
-        </div>
 
-      </div>
-    </div>
-
-    <!-- ===================== CONNECT ===================== -->
-    <div class="section">
-      <div class="section-header">
-        <span class="section-icon">📬</span>
-        <h2 class="section-title">Connect</h2>
-      </div>
-      <div class="cards">
-        <div class="card" data-animate>
-          <div class="card-body">
-            <div class="card-top">
-              <span class="card-title">Prof. Naveen Sunder</span>
-            </div>
-            <p class="card-description">
-              Questions about today's material or the course? Get in touch.
-            </p>
-            <p style="font-size:0.91rem; color:var(--text-secondary); margin-bottom:0.9rem; display:flex; gap:1.4rem; flex-wrap:wrap;">
-              <a href="mailto:nsunder@bentley.edu">📧 nsunder@bentley.edu</a>
-              <a href="https://www.linkedin.com/in/naveen-sunder-ba020513" target="_blank" rel="noopener">💼 LinkedIn</a>
-            </p>
-          </div>
         </div>
       </div>
     </div>
@@ -931,9 +860,12 @@
   <footer>
     <div class="footer-inner">
       Prof. Naveen Sunder &nbsp;·&nbsp;
-      <a href="mailto:nsunder@bentley.edu">nsunder@bentley.edu</a><br/>
-      <span style="font-size:0.77rem;">
-        EC-224 Intermediate Microeconomics &nbsp;·&nbsp; This page is updated throughout the semester.
+      <a href="mailto:nsunder@bentley.edu">nsunder@bentley.edu</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com/in/naveen-sunder-ba020513" target="_blank" rel="noopener">LinkedIn</a>
+      <br/>
+      <span style="font-size:0.72rem;">
+        EC-224 Intermediate Microeconomics &nbsp;·&nbsp; Bentley University &nbsp;·&nbsp; Updated throughout the semester.
       </span>
     </div>
   </footer>
@@ -942,28 +874,55 @@
   <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
   <script>
-    // Back to top
+    // ── Back to top ───────────────────────────────────────
     const btn = document.getElementById('back-to-top');
     window.addEventListener('scroll', () => {
-      btn.classList.toggle('visible', window.scrollY > 400);
+      btn.classList.toggle('visible', window.scrollY > 300);
     });
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // Card entrance animation on scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          // Stagger each card slightly
-          setTimeout(() => {
-            entry.target.classList.add('visible');
-          }, i * 80);
-          observer.unobserve(entry.target);
+    // ── Collapsible sections ──────────────────────────────
+    document.querySelectorAll('.section-toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        const bodyId   = toggle.getAttribute('aria-controls');
+        const body     = document.getElementById(bodyId);
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        body.classList.toggle('open', !expanded);
+        if (!expanded) {
+          body.querySelectorAll('.card[data-animate]').forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 65);
+          });
+        }
+        updateExpandBtn();
+      });
+    });
+
+    // ── Expand all ────────────────────────────────────────
+    const expandBtn   = document.getElementById('expand-all-btn');
+    let   allExpanded = false;
+
+    function updateExpandBtn() {
+      const toggles   = document.querySelectorAll('.section-toggle');
+      const openCount = [...toggles].filter(t => t.getAttribute('aria-expanded') === 'true').length;
+      allExpanded = openCount === toggles.length;
+      expandBtn.textContent = allExpanded ? 'Collapse all sections ↑' : 'Expand all sections ↓';
+    }
+
+    expandBtn.addEventListener('click', () => {
+      const toggles = document.querySelectorAll('.section-toggle');
+      const target  = !allExpanded;
+      toggles.forEach(toggle => {
+        const body = document.getElementById(toggle.getAttribute('aria-controls'));
+        toggle.setAttribute('aria-expanded', String(target));
+        body.classList.toggle('open', target);
+        if (target) {
+          body.querySelectorAll('.card[data-animate]').forEach((card, i) => {
+            setTimeout(() => card.classList.add('visible'), i * 55);
+          });
         }
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-
-    document.querySelectorAll('.card[data-animate]').forEach(card => {
-      observer.observe(card);
+      updateExpandBtn();
     });
   </script>
 
