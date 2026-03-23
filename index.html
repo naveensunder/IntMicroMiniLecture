@@ -19,14 +19,17 @@
     :root {
       --bg:             #FFFFFF;
       --bg-card:        #FFFFFF;
-      --bg-light:       #F4F8FC;
-      --text-primary:   #1A1A1A;
-      --text-secondary: #5C5C5C;
-      --text-muted:     #909090;
       --bentley:        #0078C8;
       --bentley-dark:   #005A96;
       --bentley-light:  #E6F3FB;
+      --text-primary:   #1A1A1A;
+      --text-secondary: #5C5C5C;
+      --text-muted:     #909090;
       --rule:           #E8E8E8;
+      --bentley-rule:   #0078C8;
+      --tag-article:    #0078C8;
+      --tag-podcast:    #5A7A3A;
+      --tag-video:      #7A4A2E;
       --font-serif:     'Lora', Georgia, serif;
       --font-sans:      'Source Sans 3', 'Helvetica Neue', sans-serif;
       --radius:         7px;
@@ -40,32 +43,29 @@
 
     body {
       background: var(--bg);
+      /* Watermark — Bentley shield at ~8% opacity */
+      background-image: url('bentleylogo.png');
+      background-repeat: no-repeat;
+      background-position: center 200px;
+      background-size: 420px auto;
+      background-attachment: local;
       color: var(--text-primary);
       font-family: var(--font-sans);
       font-size: 15.5px;
-      font-weight: 400;
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
-      /* Watermark: Bentley shield faintly centered behind all content */
-      background-image: url('bentleylogo.png');
-      background-repeat: no-repeat;
-      background-position: center 220px;
-      background-size: 480px auto;
-      background-attachment: local;
-      /* Very low opacity achieved via pseudo-element below */
     }
 
-    /* Watermark overlay — white wash on top of logo to reduce to ~4% visible */
+    /* Wash over watermark to ~8% visibility */
     body::after {
       content: '';
       position: fixed;
       inset: 0;
-      background: rgba(255,255,255,0.96);
+      background: rgba(255,255,255,0.92);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Everything above the watermark */
     header, .top-bar, .hero, main, footer, #back-to-top {
       position: relative;
       z-index: 1;
@@ -75,7 +75,7 @@
     a:hover { text-decoration: underline; opacity: 0.82; }
 
     /* =====================================================
-       BENTLEY BLUE TOP BAR
+       TOP BAR
     ===================================================== */
     .top-bar {
       width: 100%;
@@ -86,7 +86,7 @@
     }
 
     /* =====================================================
-       STICKY HEADER
+       STICKY HEADER — no logo, tighter, larger name
     ===================================================== */
     header {
       position: sticky;
@@ -96,7 +96,7 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--rule);
-      padding: 0.55rem 0;
+      padding: 0.45rem 0;
     }
 
     .header-inner {
@@ -105,26 +105,7 @@
       padding: 0 1.5rem;
       display: flex;
       align-items: center;
-      gap: 0.9rem;
       justify-content: space-between;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .header-logo {
-      height: 32px;
-      width: auto;
-      display: block;
-    }
-
-    .header-divider {
-      width: 1px;
-      height: 20px;
-      background: var(--rule);
     }
 
     .header-course {
@@ -135,9 +116,9 @@
       color: var(--bentley);
     }
 
-    /* Larger, linked professor name */
+    /* Larger professor name — mailto linked */
     .header-name {
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: 600;
       color: var(--text-secondary);
       transition: var(--transition);
@@ -158,8 +139,8 @@
     .hero {
       max-width: 760px;
       margin: 0 auto;
-      padding: 2.8rem 1.5rem 2rem;
-      border-bottom: 1px solid var(--rule);
+      padding: 2.5rem 1.5rem 1.8rem;
+      border-bottom: 2px solid var(--bentley);
     }
 
     .hero-label {
@@ -171,22 +152,6 @@
       margin-bottom: 0.45rem;
       opacity: 0;
       animation: fadeUp 0.4s ease forwards 0.1s;
-    }
-
-    .course-badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: var(--bentley);
-      color: #fff;
-      padding: 0.2em 0.65em;
-      border-radius: 3px;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-      position: relative;
-      top: -2px;
     }
 
     .hero h1 {
@@ -211,23 +176,14 @@
       animation: fadeUp 0.4s ease forwards 0.26s;
     }
 
-    .bentley-rule {
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(to right, var(--bentley) 0%, var(--bentley-light) 100%);
-      border: none;
-      margin: 1.5rem 0 1.3rem;
-      opacity: 0;
-      animation: fadeUp 0.4s ease forwards 0.3s;
-    }
-
     /* =====================================================
-       DOWNLOAD BUTTONS — smaller, content-width
+       DOWNLOAD BUTTONS
     ===================================================== */
     .downloads {
       display: flex;
       gap: 0.65rem;
       flex-wrap: wrap;
+      margin-top: 1.4rem;
       opacity: 0;
       animation: fadeUp 0.4s ease forwards 0.34s;
     }
@@ -248,7 +204,6 @@
       transition: var(--transition);
       box-shadow: 0 2px 8px rgba(0,120,200,0.18);
       text-decoration: none;
-      letter-spacing: 0.01em;
     }
 
     .dl-btn:hover {
@@ -260,35 +215,6 @@
       color: #fff;
       opacity: 1;
     }
-
-    .dl-btn-icon { font-size: 0.9rem; }
-
-    /* =====================================================
-       EXPAND ALL
-    ===================================================== */
-    .expand-row {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 1rem 1.5rem 0.2rem;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .expand-all-btn {
-      background: none;
-      border: 1px solid var(--rule);
-      border-radius: 4px;
-      padding: 0.26em 0.82em;
-      font-family: var(--font-sans);
-      font-size: 0.74rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      letter-spacing: 0.04em;
-      transition: var(--transition);
-    }
-
-    .expand-all-btn:hover { border-color: var(--bentley); color: var(--bentley); }
 
     /* =====================================================
        MAIN
@@ -316,6 +242,15 @@
       cursor: pointer;
       text-align: left;
       transition: var(--transition);
+      border-radius: 0;
+    }
+
+    /* Subtle hover background on entire toggle row */
+    .section-toggle:hover {
+      background: var(--bentley-light);
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+      border-radius: 4px;
     }
 
     .section-toggle:hover .section-title { color: var(--bentley); }
@@ -351,7 +286,6 @@
     }
 
     .section-toggle[aria-expanded="true"] .chevron { transform: rotate(180deg); }
-
     .section-body { display: none; padding-bottom: 0.5rem; }
     .section-body.open { display: block; }
 
@@ -520,11 +454,11 @@
     #back-to-top:hover   { transform: translateY(-2px); }
 
     /* =====================================================
-       FOOTER
+       FOOTER — simplified, Bentley blue links
     ===================================================== */
     footer {
       border-top: 1px solid var(--rule);
-      padding: 1.3rem 1.5rem;
+      padding: 1.2rem 1.5rem;
       text-align: center;
     }
 
@@ -534,29 +468,24 @@
       width: 100%;
       height: 3px;
       background: var(--bentley);
-      margin-bottom: 1.2rem;
+      margin-bottom: 1.1rem;
     }
 
     .footer-inner {
       max-width: 760px;
       margin: 0 auto;
-      font-size: 0.79rem;
+      font-size: 0.82rem;
       color: var(--text-muted);
-      line-height: 1.85;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
+      line-height: 1.9;
     }
 
-    .footer-logo {
-      height: 28px;
-      width: auto;
-      opacity: 0.75;
-      margin-bottom: 0.2rem;
+    /* Bentley blue for contact links in footer */
+    .footer-inner a {
+      color: var(--bentley);
+      font-weight: 500;
     }
 
-    .footer-inner a { color: var(--text-secondary); }
+    .footer-inner a:hover { opacity: 0.75; }
 
     /* =====================================================
        ANIMATIONS
@@ -569,6 +498,7 @@
     @media (max-width: 600px) {
       .hero h1     { font-size: 1.65rem; }
       #back-to-top { bottom: 1rem; right: 1rem; }
+      .downloads   { flex-direction: column; }
     }
   </style>
 </head>
@@ -577,49 +507,36 @@
 
   <div class="top-bar"></div>
 
-  <!-- STICKY HEADER -->
+  <!-- STICKY HEADER — no logo -->
   <header>
     <div class="header-inner">
-      <div class="header-left">
-        <img class="header-logo" src="bentleylogo.png" alt="Bentley University" />
-        <div class="header-divider"></div>
-        <span class="header-course">EC-224 &nbsp;·&nbsp; Intermediate Microeconomics</span>
-      </div>
+      <span class="header-course">EC-224 &nbsp;·&nbsp; Intermediate Microeconomics</span>
       <a class="header-name" href="mailto:nsunder@bentley.edu">Prof. Naveen Sunder</a>
     </div>
   </header>
 
   <!-- HERO -->
   <div class="hero">
-    <p class="hero-label">
-      Game Theory Mini-Lecture
-      <span class="course-badge">EC-224</span>
-    </p>
+    <p class="hero-label">Game Theory Mini-Lecture</p>
     <h1>How Criminals Make Decisions</h1>
     <p class="hero-sub">
       A microeconomic perspective on strategic behaviour — covering the Prisoner's Dilemma,
       Nash Equilibrium, and backward induction.
     </p>
-    <hr class="bentley-rule" />
     <div class="downloads">
       <a class="dl-btn" href="#" target="_blank" rel="noopener">
-        <span class="dl-btn-icon">📄</span> Lecture Handout
+        <span>📄</span> Lecture Handout
       </a>
       <a class="dl-btn" href="#" target="_blank" rel="noopener">
-        <span class="dl-btn-icon">📊</span> Lecture Slides
+        <span>📊</span> Lecture Slides
       </a>
     </div>
-  </div>
-
-  <!-- EXPAND ALL -->
-  <div class="expand-row">
-    <button class="expand-all-btn" id="expand-all-btn">Expand all sections ↓</button>
   </div>
 
   <!-- MAIN CONTENT -->
   <main>
 
-    <!-- ARTICLES -->
+    <!-- ===================== ARTICLES ===================== -->
     <div class="section">
       <button class="section-toggle" aria-expanded="false" aria-controls="section-articles">
         <span class="section-icon">📄</span>
@@ -633,20 +550,25 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=economist.com&sz=32" alt="The Economist" loading="lazy" />
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=economist.com&sz=32"
+                  alt="The Economist" loading="lazy" />
                 <span class="source-name">The Economist</span>
               </div>
               <div class="card-main">
-                <span class="card-title">Game Theory Explained — Schools Brief</span>
+                <span class="card-title">Game Theory — Schools Brief: Prison Break</span>
                 <div class="card-badges"><span class="tag tag-article">Article</span></div>
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~15 min</span>
-                <a class="card-link-inline" href="https://www.economist.com/schools-brief" target="_blank" rel="noopener">Read →</a>
+                <a class="card-link-inline"
+                  href="https://www.economist.com/economics-brief/2016/09/03/prison-break"
+                  target="_blank" rel="noopener">Read →</a>
               </div>
               <p class="card-description">
-                Accessible overview of the Prisoner's Dilemma, Nash Equilibrium, and strategic behaviour.
-                Mirrors Sections 1–3 of today's lecture directly.
+                Part of The Economist's Economics Brief series, this article covers the
+                Prisoner's Dilemma, Nash Equilibrium, and strategic behaviour directly.
+                Mirrors the content of today's lecture closely.
               </p>
             </div>
           </div>
@@ -654,20 +576,25 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=ft.com&sz=32" alt="Financial Times" loading="lazy" />
-                <span class="source-name">Financial Times</span>
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=plato.stanford.edu&sz=32"
+                  alt="Stanford Encyclopedia" loading="lazy" />
+                <span class="source-name">Stanford Encyclopedia of Philosophy</span>
               </div>
               <div class="card-main">
-                <span class="card-title">Tech Giants and Antitrust</span>
+                <span class="card-title">Game Theory — Stanford Encyclopedia of Philosophy</span>
                 <div class="card-badges"><span class="tag tag-article">Article</span></div>
               </div>
               <div class="card-meta-row">
-                <span class="time-pill">⏱ ~15 min</span>
-                <a class="card-link-inline" href="https://www.ft.com" target="_blank" rel="noopener">Visit FT →</a>
+                <span class="time-pill">⏱ ~20 min (Sections 1–2)</span>
+                <a class="card-link-inline"
+                  href="https://plato.stanford.edu/entries/game-theory/"
+                  target="_blank" rel="noopener">Read →</a>
               </div>
               <p class="card-description">
-                Apple, Google, and Meta antitrust cases interpreted through the Prisoner's Dilemma.
-                Search "antitrust AI" on ft.com for current pieces.
+                A rigorous but accessible overview of game theory's foundations. Read
+                Sections 1 and 2 only — they cover exactly what was discussed today.
+                Free, authoritative, no paywall.
               </p>
             </div>
           </div>
@@ -675,7 +602,9 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=propublica.org&sz=32" alt="ProPublica" loading="lazy" />
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=propublica.org&sz=32"
+                  alt="ProPublica" loading="lazy" />
                 <span class="source-name">ProPublica</span>
               </div>
               <div class="card-main">
@@ -684,11 +613,14 @@
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~20 min</span>
-                <a class="card-link-inline" href="https://www.propublica.org" target="_blank" rel="noopener">Read →</a>
+                <a class="card-link-inline"
+                  href="https://www.propublica.org/article/why-corporate-wrongdoers-often-go-free"
+                  target="_blank" rel="noopener">Read →</a>
               </div>
               <p class="card-description">
-                Game-theoretic logic applied to corporate whistleblowing — firms deciding whether
-                to disclose or conceal under regulatory scrutiny.
+                Game-theoretic logic applied to corporate whistleblowing — firms deciding
+                whether to disclose or conceal under regulatory scrutiny. A real-world
+                parallel to today's AI company Prisoner's Dilemma. Free to read.
               </p>
             </div>
           </div>
@@ -697,7 +629,7 @@
       </div>
     </div>
 
-    <!-- PODCASTS -->
+    <!-- ===================== PODCASTS ===================== -->
     <div class="section">
       <button class="section-toggle" aria-expanded="false" aria-controls="section-podcasts">
         <span class="section-icon">🎙️</span>
@@ -711,8 +643,10 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32" alt="Apple Podcasts" loading="lazy" />
-                <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Freakonomics Radio</span>
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32"
+                  alt="Apple Podcasts" loading="lazy" />
+                <span class="source-name">Apple Podcasts · Freakonomics Radio</span>
               </div>
               <div class="card-main">
                 <span class="card-title">Freakonomics Radio — "The Prisoner's Dilemma"</span>
@@ -720,11 +654,13 @@
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~45 min</span>
-                <a class="card-link-inline" href="https://podcasts.apple.com/us/podcast/freakonomics-radio/id354668519" target="_blank" rel="noopener">Listen →</a>
+                <a class="card-link-inline"
+                  href="https://podcasts.apple.com/us/podcast/freakonomics-radio/id354668519"
+                  target="_blank" rel="noopener">Listen →</a>
               </div>
               <p class="card-description">
-                One of the best lay introductions to the dilemma available. Covers real-world
-                applications in business and international relations.
+                One of the best lay introductions to the dilemma available. Covers
+                real-world applications in business and international relations.
               </p>
             </div>
           </div>
@@ -732,8 +668,10 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32" alt="Apple Podcasts" loading="lazy" />
-                <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Planet Money</span>
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32"
+                  alt="Apple Podcasts" loading="lazy" />
+                <span class="source-name">Apple Podcasts · Planet Money</span>
               </div>
               <div class="card-main">
                 <span class="card-title">Planet Money — "The Prisoner's Dilemma of Climate"</span>
@@ -741,7 +679,9 @@
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~25 min</span>
-                <a class="card-link-inline" href="https://podcasts.apple.com/us/podcast/planet-money/id290783428" target="_blank" rel="noopener">Listen →</a>
+                <a class="card-link-inline"
+                  href="https://podcasts.apple.com/us/podcast/planet-money/id290783428"
+                  target="_blank" rel="noopener">Listen →</a>
               </div>
               <p class="card-description">
                 Applies today's payoff matrix logic to international climate negotiations —
@@ -753,8 +693,10 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32" alt="Apple Podcasts" loading="lazy" />
-                <span class="source-name">Apple Podcasts &nbsp;·&nbsp; Capitalisn't</span>
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=podcasts.apple.com&sz=32"
+                  alt="Apple Podcasts" loading="lazy" />
+                <span class="source-name">Apple Podcasts · Capitalisn't</span>
               </div>
               <div class="card-main">
                 <span class="card-title">Capitalisn't (Chicago Booth) — AI and Antitrust</span>
@@ -762,11 +704,13 @@
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~40 min</span>
-                <a class="card-link-inline" href="https://podcasts.apple.com/us/podcast/capitalisnt/id1326698855" target="_blank" rel="noopener">Listen →</a>
+                <a class="card-link-inline"
+                  href="https://podcasts.apple.com/us/podcast/capitalisnt/id1326698855"
+                  target="_blank" rel="noopener">Listen →</a>
               </div>
               <p class="card-description">
-                Chicago Booth economists on tech firm competitive strategy — directly relevant
-                to the AI company framing from today's lecture.
+                Chicago Booth economists on tech firm competitive strategy — directly
+                relevant to the AI company framing from today's lecture.
               </p>
             </div>
           </div>
@@ -775,12 +719,12 @@
       </div>
     </div>
 
-    <!-- VIDEOS -->
+    <!-- ===================== VIDEOS ===================== -->
     <div class="section">
       <button class="section-toggle" aria-expanded="false" aria-controls="section-videos">
         <span class="section-icon">🎥</span>
         <span class="section-title">Videos</span>
-        <span class="section-count">3 resources</span>
+        <span class="section-count">5 resources</span>
         <span class="chevron">▼</span>
       </button>
       <div class="section-body" id="section-videos" role="region">
@@ -789,8 +733,10 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32" alt="YouTube" loading="lazy" />
-                <span class="source-name">YouTube &nbsp;·&nbsp; Marginal Revolution University</span>
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
+                  alt="YouTube" loading="lazy" />
+                <span class="source-name">YouTube · Marginal Revolution University</span>
               </div>
               <div class="card-main">
                 <span class="card-title">Game Theory and Nash Equilibrium</span>
@@ -798,11 +744,14 @@
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~10 min</span>
-                <a class="card-link-inline" href="https://www.youtube.com/watch?v=t9Lo2fgxWHw" target="_blank" rel="noopener">Watch →</a>
+                <a class="card-link-inline"
+                  href="https://www.youtube.com/watch?v=t9Lo2fgxWHw"
+                  target="_blank" rel="noopener">Watch →</a>
               </div>
               <p class="card-description">
-                Clear visual introduction to Nash Equilibrium with worked examples by Tyler Cowen
-                and Alex Tabarrok. Watch before attempting Level 2 practice questions.
+                Clear visual introduction to Nash Equilibrium with worked examples by
+                economists Tyler Cowen and Alex Tabarrok. Watch before attempting
+                Level 2 practice questions in the handout.
               </p>
             </div>
           </div>
@@ -810,8 +759,62 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32" alt="YouTube" loading="lazy" />
-                <span class="source-name">YouTube &nbsp;·&nbsp; Veritasium</span>
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
+                  alt="YouTube" loading="lazy" />
+                <span class="source-name">YouTube · MRU Office Hours</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">Office Hours: Game Theory — Nash Equilibrium Worked Example</span>
+                <div class="card-badges"><span class="tag tag-video">Video</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~5 min</span>
+                <a class="card-link-inline"
+                  href="https://www.youtube.com/watch?v=MjTB7PNKhgI"
+                  target="_blank" rel="noopener">Watch →</a>
+              </div>
+              <p class="card-description">
+                A short, focused walkthrough of finding Nash Equilibrium in a payoff
+                matrix — the same method used in today's lecture. Ideal for reviewing
+                the best-response steps before the practice questions.
+              </p>
+            </div>
+          </div>
+
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
+                  alt="YouTube" loading="lazy" />
+                <span class="source-name">YouTube · TED-Ed</span>
+              </div>
+              <div class="card-main">
+                <span class="card-title">TED-Ed — "How to Outsmart the Prisoner's Dilemma"</span>
+                <div class="card-badges"><span class="tag tag-video">Video</span></div>
+              </div>
+              <div class="card-meta-row">
+                <span class="time-pill">⏱ ~5 min</span>
+                <a class="card-link-inline"
+                  href="https://www.youtube.com/watch?v=emyi4z-O0ls"
+                  target="_blank" rel="noopener">Watch →</a>
+              </div>
+              <p class="card-description">
+                Animated TED-Ed lesson covering the Prisoner's Dilemma and the infinite
+                game — what happens when players interact repeatedly. Connects directly
+                to the rationality discussion from the end of today's lecture.
+              </p>
+            </div>
+          </div>
+
+          <div class="card" data-animate>
+            <div class="card-body">
+              <div class="card-source">
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
+                  alt="YouTube" loading="lazy" />
+                <span class="source-name">YouTube · Veritasium</span>
               </div>
               <div class="card-main">
                 <span class="card-title">Veritasium — "The Prisoner's Dilemma"</span>
@@ -819,11 +822,13 @@
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~15 min</span>
-                <a class="card-link-inline" href="https://www.youtube.com/watch?v=mScpHTIi-kM" target="_blank" rel="noopener">Watch →</a>
+                <a class="card-link-inline"
+                  href="https://www.youtube.com/watch?v=mScpHTIi-kM"
+                  target="_blank" rel="noopener">Watch →</a>
               </div>
               <p class="card-description">
-                Covers repeated games and the evolution of cooperation — connects to the
-                rationality discussion at the end of today's lecture.
+                Covers repeated games and the evolution of cooperation — connects to
+                the rationality discussion at the end of today's lecture.
               </p>
             </div>
           </div>
@@ -831,7 +836,9 @@
           <div class="card" data-animate>
             <div class="card-body">
               <div class="card-source">
-                <img class="source-favicon" src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32" alt="YouTube" loading="lazy" />
+                <img class="source-favicon"
+                  src="https://www.google.com/s2/favicons?domain=youtube.com&sz=32"
+                  alt="YouTube" loading="lazy" />
                 <span class="source-name">YouTube</span>
               </div>
               <div class="card-main">
@@ -840,11 +847,13 @@
               </div>
               <div class="card-meta-row">
                 <span class="time-pill">⏱ ~3 min</span>
-                <a class="card-link-inline" href="https://www.youtube.com/watch?v=2d_dtTZQyUM" target="_blank" rel="noopener">Watch →</a>
+                <a class="card-link-inline"
+                  href="https://www.youtube.com/watch?v=2d_dtTZQyUM"
+                  target="_blank" rel="noopener">Watch →</a>
               </div>
               <p class="card-description">
-                Hollywood's take on Nash Equilibrium — good for intuition, not precision.
-                Use alongside the lecture notes for the technically accurate version.
+                Hollywood's take on Nash Equilibrium. Good for intuition, not
+                precision — use alongside the lecture notes for the accurate version.
               </p>
             </div>
           </div>
@@ -855,28 +864,29 @@
 
   </main>
 
-  <!-- FOOTER -->
+  <!-- FOOTER — name + email + LinkedIn only, Bentley blue links -->
   <footer>
     <div class="footer-inner">
-      <img class="footer-logo" src="bentleylogo.png" alt="Bentley University" />
-      Prof. Naveen Sunder &nbsp;·&nbsp;
+      Prof. Naveen Sunder
+      &nbsp;·&nbsp;
       <a href="mailto:nsunder@bentley.edu">nsunder@bentley.edu</a>
       &nbsp;·&nbsp;
-      <a href="https://www.linkedin.com/in/naveen-sunder-ba020513" target="_blank" rel="noopener">LinkedIn</a>
-      <br/>
-      <span style="font-size:0.72rem;">
-        EC-224 Intermediate Microeconomics &nbsp;·&nbsp; Bentley University &nbsp;·&nbsp; Updated throughout the semester.
-      </span>
+      <a href="https://www.linkedin.com/in/naveen-sunder-ba020513"
+         target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </footer>
 
   <button id="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
   <script>
+    // Back to top
     const btn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => btn.classList.toggle('visible', window.scrollY > 300));
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.addEventListener('scroll', () =>
+      btn.classList.toggle('visible', window.scrollY > 300));
+    btn.addEventListener('click', () =>
+      window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+    // Collapsible sections
     document.querySelectorAll('.section-toggle').forEach(toggle => {
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -888,32 +898,7 @@
             setTimeout(() => card.classList.add('visible'), i * 65);
           });
         }
-        updateExpandBtn();
       });
-    });
-
-    const expandBtn = document.getElementById('expand-all-btn');
-    let allExpanded = false;
-
-    function updateExpandBtn() {
-      const toggles = document.querySelectorAll('.section-toggle');
-      allExpanded = [...toggles].every(t => t.getAttribute('aria-expanded') === 'true');
-      expandBtn.textContent = allExpanded ? 'Collapse all sections ↑' : 'Expand all sections ↓';
-    }
-
-    expandBtn.addEventListener('click', () => {
-      const target = !allExpanded;
-      document.querySelectorAll('.section-toggle').forEach(toggle => {
-        const body = document.getElementById(toggle.getAttribute('aria-controls'));
-        toggle.setAttribute('aria-expanded', String(target));
-        body.classList.toggle('open', target);
-        if (target) {
-          body.querySelectorAll('.card[data-animate]').forEach((card, i) => {
-            setTimeout(() => card.classList.add('visible'), i * 55);
-          });
-        }
-      });
-      updateExpandBtn();
     });
   </script>
 
